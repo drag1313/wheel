@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wheel2/quiz_results.dart';
+//import 'package:timezone/data/latest.dart' as tz;
+//import 'package:wheel2/helpers/notifications.dart';
+import 'package:wheel2/screens/quiz_results.dart';
 import 'package:wheel2/screens/quiz.dart';
 import 'package:wheel2/screens/rec.dart';
 import 'package:wheel2/screens/welcome.dart';
+import 'package:wheel2/task_manager/data_service.dart';
+import 'package:wheel2/task_manager/topics_screen.dart';
 
 void main() async {
-  //await Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
-  // ignore: unused_local_variable
-  //var box = await Hive.openBox('appBox');
-
+  await DataService.resetData(); // Сбрасываем старые данные
+  await DataService.init(); // Инициализируем с новыми данными
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((value) => runApp(const MyApp()));
-  //runApp(const MyApp());
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/quiz': (context) => const QuizPage(),
         '/result': (context) => const ResultPage(),
         '/recommendation': (context) => const RecommendationPage(),
+        '/rec_points': (context) => const TopicsScreen(),
       },
     );
   }

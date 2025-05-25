@@ -128,7 +128,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -140,10 +140,10 @@ class _QuizPageState extends State<QuizPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 60),
-                  Container(
+                  const SizedBox(height: 30),
+                  SizedBox(
                     width: displayWidth(context) * 0.8,
-                    height: displayHeight(context) * 0.1,
+                    height: displayHeight(context) * 0.125,
                     child: Text(
                       questions[index]["question"]!,
                       style: const TextStyle(

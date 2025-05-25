@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wheel2/helpers/entitys.dart';
 
+//late int globalIndex;
+
 class RecommendationPage extends StatefulWidget {
   const RecommendationPage({super.key});
 
@@ -9,8 +11,6 @@ class RecommendationPage extends StatefulWidget {
 }
 
 class _RecommendationPageState extends State<RecommendationPage> {
-  int index = 0;
-
   String? validate(double point, int index) {
     if (point < -4) {
       return recommendation[index]["rec1"];
@@ -29,38 +29,44 @@ class _RecommendationPageState extends State<RecommendationPage> {
   Widget build(BuildContext context) {
     var data = ModalRoute.of(context)!.settings.arguments! as Map;
     return Scaffold(
-      appBar: AppBar(title: const Text('Наши рекомендации:')),
+      appBar: AppBar(title: const Text('Результаты тестирования:')),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: recommendation.length,
         itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  recommendation[index]["theme"]!,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+          return GestureDetector(
+            onTap: () {
+              // globalIndex = index;
+              Navigator.pushNamed(context, '/rec_points');
+            },
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 20),
+                Center(
+                  child: Text(
+                    recommendation[index]["theme"]!,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: Text(
-                  validate(
-                    data[concat(recommendation[index]["id"]!)],
-                    index,
-                  ).toString(),
-                  style: const TextStyle(
-                    fontSize: 20,
-                    // fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                Center(
+                  child: Text(
+                    validate(
+                      data[concat(recommendation[index]["id"]!)],
+                      index,
+                    ).toString(),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      // fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
